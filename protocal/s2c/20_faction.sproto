@@ -1,0 +1,27 @@
+send_faction_message 2001{
+    request {
+        faction_message 0 : faction_message
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+faction_levelup 2002{
+    request {
+        faction_level 0 : integer
+        faction_exp 1 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+faction_task_finish 2003{
+    request {
+        
+    }
+    response {
+        result 0 : integer
+    }
+}

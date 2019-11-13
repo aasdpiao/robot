@@ -1,0 +1,498 @@
+.package{
+	type 0 : integer
+	session 1 : integer
+}
+
+.attr_dict{
+	key 0 : integer
+	value 1 : integer
+}
+
+.player_rank{
+	account_id 0 : integer
+	user_name 1 : string
+	rank      2 : integer
+	times     3 : integer
+}
+
+.grid_object{
+	element_index 0 : integer
+	grid_id 1 : integer
+}
+
+.build_object{
+	timestamp 0 : integer
+	build_index 1 : integer
+	build_id 2 : integer
+	grid_id 3 : integer
+	flip 4 : integer
+	status 5 : integer
+}
+
+.undevelop_object{
+	timestamp 0 : integer
+	grid_id 1 :integer
+	status 2 :integer
+	undevelop_index 3 : integer
+}
+
+.storage_build{
+	build_index 0 : integer
+	build_count 1 : integer
+}
+
+.build_data{
+	undevelop_count 0 : integer
+	undevelop_objects 1 : *grid_object
+	road_objects 2 : *grid_object
+	floor_objects 3 : *grid_object
+	green_objects 4 : *grid_object
+	build_objects 5 : *build_object
+	building_undevelops 6 : *undevelop_object
+	storage_builds 7 : *storage_build
+}
+
+.item_object{
+	item_index 0 : integer
+	item_count 1 : integer
+}
+
+.item_data{
+	item_objects 0 : *item_object
+	worker_id 1 : integer
+	expand_count 2 : integer
+}
+
+.plant_object{
+	timestamp 0 : integer
+	build_id 1 : integer
+	plant_index 2 : integer
+	status 3 : integer
+	harvest_time 4 : integer
+	role_id 5 : integer
+	role_name 6 : string
+	role_level 7 : integer
+	head_index 8 : integer
+}
+
+.plant_data{
+	plant_objects 0 : *plant_object
+	worker_id 1 : integer
+	timestamp 2 : integer           #下一朵云的生成时间
+	cloud_count 3 : integer         #当前云的数量
+}
+
+.product_object{
+	timestamp 0 : integer
+	product_time 1 : integer
+	product_index 2 : integer
+	status 3 : integer
+	cash_count 4 : integer
+	item_objects 5 : *item_object
+	harvest_time 6 : integer
+	multiple 7 : integer
+}
+
+.storage_object{
+	timestamp 0 : integer
+	product_index 1 : integer
+    slot_index 2 : integer
+	build_id 3 : integer
+	multiple 4 :integer
+}
+
+.factory_object{
+	timestamp 0 : integer
+	build_id 1 : integer
+	product_slot 2 : integer
+	product_storage 3 : integer
+	product_quene 4 : *product_object
+	storage_quene 5 : *storage_object
+	factory_attr 6 : string
+}
+
+.factory_data{
+	factory_objects 0 : *factory_object
+}
+
+.animal_object{
+	timestamp 0 : integer
+	slot_index 1 : integer
+	status 2 : integer
+	cash_count 3 : integer
+	item_objects 4 : *item_object
+	harvest_time 5 : integer
+}
+
+.feed_object{
+	timestamp 0 : integer
+	build_id 1 : integer
+	animal_objects 2 : *animal_object
+	feed_attr 3 : string
+	slot_count 4 : integer
+}
+
+.feed_data{
+	feed_objects 0 : *feed_object
+}
+
+.order_object{
+	order_index 0 : integer
+	item_index 1 : integer
+	item_count 2 : integer
+	status 3 : integer
+	role_id 4 : integer
+	role_name 5 : string
+	role_level 6 : integer
+	head_index 7 : integer
+}
+
+.reward_object{
+	reward_index 0 : integer
+	item_index 1 : integer
+	item_count 2 : integer
+	status 3 : integer
+}
+
+.trains_object{
+	timestamp 0 : integer
+	trains_index 1 : integer
+	terminal_index 2 : integer
+	unlock 3 : integer
+	status 4 : integer
+	order_objects 5 : *order_object
+	reward_objects 6 : *reward_object
+}
+
+.trains_data{
+	station_status 0 : integer
+	trains_objects 1 : *trains_object
+	worker_id 2 : integer
+}
+
+.order_box{
+	order_index 0 : integer
+	item_count 1 : integer
+	status 2 : integer
+	role_id 3 : integer
+	role_name 4 : string
+	role_level 5 : integer
+	head_index 6 : integer
+}
+
+.flight_order{
+	order_boxes 0 : *order_box
+}
+
+.flight_reward{
+	status 0 : integer
+	item_objects 1 : *item_object
+}
+
+.flight_data{
+	timestamp 0 : integer
+	station_status 1 : integer
+	worker_id 2 : integer
+	flight_orders 3 : *flight_order
+	flight_rewards 4 : *flight_reward
+}
+
+.helicopter_box{
+	order_index 0 : integer
+	item_count 1 : integer
+}
+
+.helicopter_order{
+	timestamp 0 : integer
+	order_boxes 1 : *helicopter_box
+	person_index 2 : integer
+	status 3 : integer
+}
+
+.helicopter_data{
+	worker_id 0 : integer
+	station_status 1 : integer
+	order_objects 2 : *helicopter_order
+}
+
+.achievement_record{
+	timestamp 0 : integer
+	finish_times 1 : integer
+}
+
+.achievement_object{
+	achievement_type 0 : integer
+	status 1 : integer
+	finish_times 2 : integer
+	achievement_records 3 : *achievement_record
+	receive 4 : integer
+}
+
+.achievement_data{
+	worker_id 0 : integer
+	achievement_objects 1 : *achievement_object
+	finish_helicopter 2 : integer
+	finish_trains 3 : integer
+	finish_flight 4 : integer
+	finish_ship 5 : integer
+	finish_product 6 : integer
+}
+
+.commodity_object{
+	sale_index 0 : integer
+	item_count 1 : integer
+}
+
+.businessman_object{
+	timestamp 0 : integer #雇佣休息开始时间
+	businessman_index 1 :integer # 配表id
+	expire_time 2 : integer #雇佣过期时间
+	commodity_objects 3 : *commodity_object
+}
+
+.sale_object{
+	sale_index 0 : integer
+	item_count 1 : integer
+	sale_price 2 : integer
+	status 3 : integer
+}
+
+.market_data{
+	worker_id 0 : integer
+	status 1 : integer
+	timestamp 2 : integer
+	expand_count 3 : integer
+	sale_objects 4 : *sale_object
+	businessman_object 5 : businessman_object
+}
+
+.skill{
+	skill_index 0 : integer
+}
+
+.worker_object{
+	worker_id 0 : integer
+	worker_index 1 : integer
+	level 2 : integer
+	star 3 : integer
+	exp 4 : integer
+	profession 5 : integer
+	skills 6 : *skill
+	worker_attr 7 : string
+}
+
+.employment_data{
+	worker_objects 0 : *worker_object
+	worker_seed 1 : integer
+	upper_count 2 : integer
+	cash_timestamp 3 : integer
+	free_timestamp 4 : integer
+	free_times 5 : integer
+}
+
+.mail_object{
+	mail_id 0 : integer
+	title 1 : string
+	content 2 : string
+	item_objects 3 : *item_object
+	status 4 : integer
+	timestamp 5 : integer
+}
+
+.mail_data{
+	mail_seed 0 : integer
+	global_id 1 : integer
+	mail_objects 2 : *mail_object
+}
+
+.friend_object{
+	account_id 0 : integer
+	avatar_index 1 : integer
+	level 2 : integer
+	town_name 3 : string
+	status 4 : integer
+	mask_help 5 : integer
+}
+
+.thumb_up {
+	account_id 0 : integer
+}
+
+.friend_data{
+	friend_objects 0 : *friend_object
+	recommend_objects 1 : *friend_object
+	request_friends 2 : *friend_object
+	verify_friends 3 : *friend_object
+	thumb_ups 4 : *thumb_up 
+	timestamp 5 : integer
+}
+
+.event_object{
+	event_id 0 : integer
+	person_index 1 : integer
+	order_index 2 : integer
+}
+
+.event_data{
+	event_objects 0 : *event_object
+	timestamp 1 : integer
+	event_seed 2 : integer
+	task_index 3 : integer
+	task_objects 4 : *task_object
+}
+
+.task_object{
+	task_index 0 : integer
+	times 1 : integer
+	status 2 : integer
+}
+
+.levelup_reward{
+	reward_index 0 : integer
+	status 1 : integer
+}
+
+.daily_data{
+	timestamp 0 : integer
+	task_objects 1 : *task_object
+	reward_objects 2 : *reward_object
+	sign_rewards 3 : *item_object
+	seven_tasks 4 : *task_object
+	seven_deadline 5 : integer
+	levelup_rewards 6 : *levelup_reward
+}
+
+.island_object{
+	island_index 0 : integer
+	multiple 1 : integer
+	timestamp 2 : integer
+	status 3 : integer
+	ship_index 4 : integer
+	reward_objects 5 : *reward_object
+}
+
+.ship_object{
+	ship_index 0 : integer
+	status 1 : integer
+	timestamp 2 : integer
+	island_index 3 : integer
+	multiple 4 : integer
+	commodity_objects 5 : *item_object
+	reward_objects 6 : *reward_object
+	set_sail_type 7 : integer
+	worker_objects 8 : *worker_object
+}
+
+.hero_island{
+	island_index 0 : integer
+	timestamp 2 : integer
+	status 3 : integer
+	ship_index 4 : integer
+	worker_objects 5 : *worker_object
+}
+
+.seaport_data{
+	worker_id 0 : integer
+	station_status 1 : integer
+	timestamp 2 : integer
+	island_objects 3 : *island_object
+	ship_objects 4 : *ship_object
+	hero_islands 5 : *hero_island
+}
+
+.newspaper_object{
+	index 0 : integer         #摊位的编号
+	item_index 1 : integer    #物品id
+	item_count 2 : integer    #物品数量
+	sale_price 3 : integer	  #物品单价
+	status 4     : integer    #状态 0出售 1已售
+	account_id 5 : integer	  #购买人的id
+	user_name 6  : string     #购买人的用户名
+	head_index 7 : integer    #购买人的头像
+	use_ad 8 : integer        #使用广告 0不使用 1使用
+}
+
+.newspaper_data{
+	expand_count 0 : integer                    #扩展次数
+	stall_objects 1 : *newspaper_object             #摊位数据
+	newspaper_objects 2 : *newspaper_object         #报纸数据
+	newspaper_timestamp 3 : integer                       #下一次刷新的时间
+	ad_timestamp 4 : integer				    #免费广告时间
+	worker_id 5 : integer
+}
+
+.faction_data{
+	faction_id 0 : integer
+	timestamp 1 : integer       #如果faction_id 为0 没有加入工会.timestamp 为下次加入工会的时间线 
+	status 2 :integer
+	faction_object 3 : faction_object
+	faction_task_objects 4 : *task_object
+	faction_collective_objects 5 : *task_object
+	member_attr 6 : string
+}
+
+.faction_member_object{
+	account_id 0 : integer                #id
+	faction_position 1 : integer       #职位 0是普通成员 1 是副会长 2 是会长
+	faction_contribution 2 : integer   #贡献
+	member_attr 3 : string             #成员属性
+	head_index 4 : integer   #头像
+	level 5 : integer        #等级 （防止退出工会后消息显示出错）
+	user_name 6 : string     #用户名
+	last_login 7 : integer   #上次登录时间
+}
+
+.faction_message{
+	account_id 0 : integer      #发送者id
+	timestamp 1 : integer    #发送时间
+	chat_message 2 : string  #内容
+	head_index 3 : integer   #头像
+	level 4 : integer        #等级 （防止退出工会后消息显示出错）
+	user_name 5 : string     #用户名
+}
+
+.request_message{
+	account_id 0 : integer
+	timestamp 1 : integer
+	head_index 2 : integer
+	level 3 : integer
+	user_name 4 : string     #用户名
+}
+
+.pray_object{
+	account_id 0 : integer
+	timestamp 1 : integer
+	item_index 2 : integer
+	item_count 3 : integer
+	head_index 4 : integer
+	level 5 : integer
+	user_name 6 : string     #用户名
+	receive_count 7 : integer
+}
+
+.faction_packet{
+	timestamp 0 : integer
+	packet_type 1 : integer
+	packet_count 2 : integer
+	account_id 3 : integer
+}
+
+.faction_object{
+	faction_id 0 : integer                              #工会id
+	faction_name 1 : string								#工会名字
+	faction_badge 2 : integer                           #徽章  分4个字段 32位  FF FF  形状 图标 背景 颜色  每个字段使用0-f 共16种 
+	create_time 3 : integer								#创建时间
+	faction_chirman 4 : integer                         #会长
+	faction_member_objects 5 : *faction_member_object   #工会成员
+	faction_messages 6 : *faction_message               #聊天消息
+	request_messages 7 : *request_message			    #入会申请
+	pray_objects 8 : *pray_object                       #许愿
+	allow_join 9 : integer                              #是否可以加入
+	join_level 10 : integer                             #加入等级下限
+	faction_desc 11 : string                            #工会介绍
+	faction_level 12 : integer                          #工会等级
+	faction_exp 13 : integer                            #工会经验
+	faction_packets 14 : *faction_packet                 #工会红包
+	faction_attr 15 : string                             #工会属性
+	faction_task_objects 16 : *task_object
+}

@@ -1,0 +1,38 @@
+task_finish 1701{
+	request {
+		task_index 0 : integer
+		times 1 : integer
+	}
+	response {
+		result 0 : integer
+	}
+}
+
+seven_finish 1702{
+	request {
+		task_index 0 : integer
+		times 1 : integer
+	}
+	response {
+		result 0 : integer
+	}
+}
+
+unlock_seven 1703{
+	request {
+		seven_deadline 0 : integer
+		seven_tasks 1 : *task_object
+	}
+	response {
+		result 0 : integer
+	}
+}
+
+can_levelup_reward 1704{
+	request {
+		reward_index 0 : integer
+	}
+	response {
+		result 0 : integer
+	}
+}

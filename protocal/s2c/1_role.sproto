@@ -1,0 +1,23 @@
+send_ReInited 101{
+	request {
+		ver_id 0 : integer
+	}
+	response {
+		result 0 : integer
+	}
+}
+
+login_callback 102{
+	request {
+		result 0 : integer
+		msg 1 : string
+	}
+}
+
+account_remote_login 103{
+	
+}
+
+heartbeat 104{
+
+}

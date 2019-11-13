@@ -1,0 +1,267 @@
+#未加入工会时打开工会界面发送请求
+request_faction_panel 2001{                      
+    response {
+		faction_objects 0 : *faction_object     #工会数据
+	}
+}
+#已加入工会后打开工会界面请求
+open_faction_panel 2002{
+    response {
+        faction_object 0 : faction_object
+        faction_task_objects 1 : *task_object
+        member_attr 2 : string
+	}
+}
+
+#创建工会
+create_faction 2003{                            
+    request {
+        faction_name 0 : string
+        faction_desc 1 : string
+        faction_badge 2 : integer
+        allow_join 3 : integer
+        join_level 4 : integer
+	}
+	response {
+        result 0 : integer
+        faction_object 1 : faction_object
+        faction_task_objects 2 : *task_object
+        member_attr 3 : string
+	}
+}
+
+#请求加入工会
+request_join_faction 2004{                 
+    request {
+        faction_id 0 : integer
+    }
+    response {
+        result 0 : integer                                
+        faction_object 1 : faction_object
+        faction_task_objects 2 : *task_object
+        member_attr 3 : string
+    }
+}
+#搜索工会
+search_faction 2005{
+    request {
+        search_type 0 : integer            #1是id 2是名字
+        search_key 1 : string
+    }
+    response {
+        faction_objects 0 : *faction_object
+    }
+}
+
+#特权指令 （会长，副会长）
+#接受加入请求
+accept_join_faction 2006{
+    request {
+        role_id 0 : integer
+        status 1 : integer   #0同意 1拒绝
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+exit_faction 2007{
+    response {
+        result 0 : integer
+        timestamp 1 : integer           #在这个时间之前不能加入工会
+    }
+}
+
+#设置副会长
+set_vice_chairman 2008{
+    request {
+        role_id 0 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+#解除副会长
+expulsion_vice_chairman 2009{
+    request {
+        role_id 0 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+#踢人
+expulsion_member 2010{
+    request {
+        role_id 0 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+#获取红包信息
+request_faction_packet 2011{
+    request {
+
+    }
+    response {
+       faction_packets 0 : *faction_packet
+    }
+}
+
+#开红包
+get_faction_packet 2012{
+    request {
+        timestamp 0 : integer
+        packet_type 1 : integer
+    }
+    response {
+        result 0 : integer
+        packet_count 1 : integer
+        packet_type 2 : integer
+    }
+}
+
+#请求物品
+pray_faction_item 2013{
+    request {
+        timestamp 0 : integer
+        item_index 1 : integer
+        item_count 2 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+#获取工会许愿
+request_faction_pray 2014{
+    request {
+        timestamp 0 : integer
+    }
+    response {
+        pray_objects 0 : *pray_object
+    }
+}
+
+#完成许愿
+finish_faction_pray 2015{
+    request {
+        timestamp 0 : integer
+        role_id 1 : integer
+        item_index 2 : integer
+        item_count 3 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+receive_faction_pray 2016{
+    request {
+        timestamp 0 : integer
+        item_index 1 : integer
+        item_count 2 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+
+finish_faction_task 2017{
+    request {
+        timestamp 0 : integer
+        task_type 1 : integer
+        task_index 2 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+buy_faction_mall 2018{
+    request {
+        mall_index 0 : integer
+        item_index 1 : integer
+        item_count 2 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+send_faction_message 2019{
+    request {
+        timestamp 0 : integer
+        message 1 : string
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+request_faction_task_objects 2020{
+    request {
+        timestamp 0 : integer
+    }
+    response {
+        faction_task_objects 0 : *task_object
+    }
+}
+
+setting_faction 2021{
+    request {
+        faction_name 0 : string
+        faction_desc 1 : string
+        faction_badge 2 : integer
+        allow_join 3 : integer
+        join_level 4 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+unlock_faction_building 2022{
+    request {
+        timestamp 0 : integer
+        cost_gold 1 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+promote_faction_building 2023{
+    request {
+        timestamp 0 : integer
+        cost_cash 1 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+finish_faction_building 2024{
+    request {
+        timestamp 0 : integer
+		item_objects 1 : *item_object
+    }
+    response {
+        result 0 : integer
+    }
+}
+
+finish_faction_collective 2025{
+    request {
+        timestamp 0 : integer
+        task_type 1 : integer
+        task_index 2 : integer
+        item_index 3 : integer
+        item_count 4 : integer
+    }
+    response {
+        result 0 : integer
+    }
+}

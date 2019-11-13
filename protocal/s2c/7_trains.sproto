@@ -1,0 +1,23 @@
+
+finish_trains_help 701{
+	request {
+		trains_index 0 : integer
+		order_object 1 : order_object
+        role_id 2 : integer
+	}
+	response {
+		result 0 : integer
+	}
+}
+
+subscribe_trains_help 702{
+	request {
+        subscribe_role_id 0 : integer
+		help_role_id 1 : integer
+        trains_index 2 : integer
+        order_index 3 : integer
+	}
+	response {
+		result 0 : integer
+	}
+}

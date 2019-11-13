@@ -1,0 +1,21 @@
+request_rank 1801{
+	response {
+		rank_helicopter 0 : *player_rank
+		rank_trains     1 : *player_rank
+		rank_flight     2 : *player_rank
+		rank_seaport    3 : *player_rank
+		rank_friendly   4 : *player_rank
+		rank_exp        5 : *player_rank
+		rank_thumb_up   6 : *player_rank
+		rank_level      7 : *player_rank
+		my_helicopter   8 : player_rank
+		my_trains       9 : player_rank
+		my_flight       10 : player_rank
+		my_seaport      11 : player_rank
+		my_friendly     12 : player_rank
+		my_exp          13 : player_rank
+		my_thumb_up     14 : player_rank
+		my_level        15 : player_rank
+		timestamp       16 : integer
+	}
+}

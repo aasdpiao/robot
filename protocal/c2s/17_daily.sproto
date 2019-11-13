@@ -1,0 +1,60 @@
+request_daily 1701{
+        request {
+                timestamp 0 : integer
+	}
+	response {
+                task_objects 0 : *task_object
+                reward_objects 1 : *reward_object
+                task_index 2 : integer
+                main_tasks 3 : *task_object
+	}
+}
+
+receive_daily 1702{
+        request {
+                timestamp 0 : integer
+                reward_index 1 : integer
+	}
+	response {
+                result 0 : integer
+	}
+}
+
+finish_task 1703{
+        request {
+                timestamp 0 : integer
+                task_index 1 : integer
+	}
+	response {
+                result 0 : integer
+	}
+}
+
+finish_seven 1704{
+        request {
+                timestamp 0 : integer
+                task_index 1 : integer
+	}
+	response {
+                result 0 : integer
+	}
+}
+
+receive_levelup_reward 1705{
+        request {
+                reward_index 0 : integer
+	}
+	response {
+                result 0 : integer
+	}
+}
+
+get_ad_reward 1706{
+        request {
+                timestamp 0 : integer
+                ad_index 1 : integer
+	}
+	response {
+                result 0 : integer
+	}
+}

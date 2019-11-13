@@ -1,0 +1,68 @@
+subscribe_buy_stall 1901{
+	request {
+		subscribe_role_id 0 : integer
+		index 1 : integer
+		account_id 2 : integer
+		user_name 3 : string
+		head_index 4 : integer
+	}
+	response {
+		result 0 : integer 
+	} 
+}
+
+subscribe_add_stall 1902{
+	request {
+		subscribe_role_id 0 : integer
+		index 1 : integer
+		item_index 2 : integer
+		item_count 3 : integer
+		sale_price 4 : integer
+	}
+	response {
+		result 0 : integer 
+	} 
+}
+
+subscribe_revert_stall 1903{
+	request {
+		subscribe_role_id 0 : integer
+		index 1 : integer
+	}
+	response {
+		result 0 : integer 
+	} 
+}
+
+
+update_buy_stall 1904{
+	request {
+		index 0 : integer
+		account_id 1 : integer
+		user_name 2 : string
+		head_index 3 : integer
+	}
+	response {
+		result 0 : integer 
+	} 
+}
+
+subscribe_add_stall_capacity 1905{
+	request {
+		subscribe_role_id 0 : integer
+		index 1 : integer
+	}
+	response {
+		result 0 : integer 
+	} 
+}
+
+subscribe_confirm_collect_money 1906{
+	request {
+		subscribe_role_id 0 : integer
+		index 1 : integer
+	}
+	response {
+		result 0 : integer 
+	} 
+}
