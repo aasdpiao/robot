@@ -10,7 +10,7 @@ local syslog = {
 	},
 }
 
-local level = 5 -- 1:debug 2:info 3:notice 4:warning 5:error
+local level = 1 -- 1:debug 2:info 3:notice 4:warning 5:error
 
 local function write (priority, fmt, ...)
 	if not fmt then return end
