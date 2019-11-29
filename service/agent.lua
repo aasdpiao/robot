@@ -1,7 +1,16 @@
 local socket = require "skynet.socket"
 local crypt = require "skynet.crypt"
+local sprotoloader = require "sprotoloader"
+local RoleObject = require "role.role_object"
 
 local CMD = {}
+local role_object
+local session = {}
+local session_id = 1
+
+local connect_fd
+local host = sprotoloader.load(MSG.s2c):host "package"
+local request = host:attach (sprotoloader.load (MSG.c2s))
 
 local function assert_socket(service, v, fd)
 	if v then
@@ -14,7 +23,6 @@ end
 
 local function write(service, fd, text)
 	local package = string.pack (">s2", text)
-	
 	assert_socket(service, socket.write(fd, package), fd)
 end
 
@@ -26,7 +34,7 @@ local function read_msg (fd)
 	local s = read(fd, 2)
 	local size = s:byte(1) * 256 + s:byte(2)
 	local package = read (fd, size)
-	syslog.debug("package",bin2hex(package))
+	-- syslog.debug("package",bin2hex(package))
 	return package
 end
 
@@ -37,9 +45,63 @@ local function encode_token(index)
 		crypt.base64encode("123456"))
 end
 
+local function send_message(message)
+	write("message",connect_fd,message)
+	-- syslog.debug("message",bin2hex(message))
+end
+
+local function handle_request(name, args, response)
+	local f = role_object:get_handle_response(name)
+	if f then
+		local ret = f(role_object,args)
+		if not ret then return end
+		send_message(response(ret))
+	else
+		print("unhandle_request : "..name)
+	end
+end
+
+function handle_response (id, args)
+	local s = assert (session[id])
+	session[id] = nil
+	local f = role_object:get_handle_request(s.name)
+	if f then
+		f (role_object,s.args, args)
+	else
+		print("unhandle_response : "..s.name)
+	end
+end
+
+function send_request (name, args)
+	session_id = session_id + 1
+	local message = request(name, args,session_id)
+	send_message ( message)
+	session[session_id] = { name = name, args = args }
+end
+
+local function handle_message(t, ...)
+	if t == "REQUEST" then
+		handle_request (...)
+	else
+		handle_response (...)
+	end
+end
+
+local function message_route()
+	local package = read_msg(connect_fd)
+	handle_message (host:dispatch (package))	
+end
+
+local function update()
+	while true do
+		message_route()
+		skynet.sleep(10)
+	end
+end
+
 local function connect(host,port,index)
 	local fd,err = socket.open(host,port)
-	syslog.debug("connect",fd,err)
+	-- syslog.debug("connect",fd,err)
     assert(fd)
     local challenge = crypt.base64decode(read_msg(fd))
     local clientkey = crypt.randomkey()
@@ -57,14 +119,12 @@ local function connect(host,port,index)
 	account_id = tonumber(account_id)
 	syslog.debug("account_id",account_id)
 
-	fd,err = socket.open(host, 8888)
-	syslog.debug("connect",fd,err)
+	connect_fd,err = socket.open(host, 8888)
 	
 	local handshake = string.format("%s@%s:%d", crypt.base64encode(account_id), crypt.base64encode("township"), 1)
 	local hmac = crypt.hmac64(crypt.hashkey(handshake), secret)
-    write("login",fd,handshake .. ":" .. crypt.base64encode(hmac))
-	local result = read_msg(fd)
-	syslog.debug("login",result)
+    write("login",connect_fd,handshake .. ":" .. crypt.base64encode(hmac))
+	skynet.fork(update)
 end
 
 function CMD.connect(conf)
@@ -79,6 +139,8 @@ function CMD.close()
 end
 
 skynet.start(function ()
+	role_object = RoleObject.new(send_request)
+	role_object:init()
     skynet.dispatch("lua",function (session,source,cmd,...)
         local func = CMD[cmd]
         skynet.retpack(func(...))
